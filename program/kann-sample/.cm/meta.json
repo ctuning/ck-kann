@@ -1,0 +1,50 @@
+{
+  "backup_data_uid": "473c67d70ebe45a9",
+  "build_compiler_vars": {
+  },
+  "compile_deps": {
+  },
+  "print_files_after_run": [
+    "tmp-stdout.tmp",
+    "tmp-stderr.tmp"
+  ],
+  "process_in_tmp": "yes",
+  "program": "yes",
+  "run_cmds": {
+    "default": {
+      "ignore_return_code": "no",
+      "run_time": {
+        "fine_grain_timer_file": "tmp-ck-timer.json",
+        "run_cmd_main": "$<<CK_ENV_MODEL_KANN_HOST_BIN>>$ $<<CK_ENV_MODEL_KANN_MULTIBIN_BIN>>$ io_bin $<<CK_ENV_MODEL_KANN_MODEL_DIR>>$/input_prep $<<CK_ENV_MODEL_KANN_MODEL_DIR>>$/output_vector $<<CK_ENV_MODEL_KANN_PARAMS_BIN>>$ $<<CK_KANN_MAX_NUMBER_IMAGES>>$",
+        "run_cmd_out1": "tmp-stdout.tmp",
+        "run_cmd_out2": "tmp-stderr.tmp",
+        "run_correctness_output_files": [],
+        "run_input_files": [
+        ],
+        "run_output_files": [
+          "tmp-ck-timer.json"
+        ]
+      }
+    }
+  },
+  "run_deps": {
+    "kannmodel": {
+      "force_target_as_host": "yes",
+      "local": "yes",
+      "name": "Caffe model (net and weights)",
+      "sort": 40,
+      "tags": "kannmodel"
+    }
+  },
+  "run_vars": {
+	  "CK_KANN_MAX_NUMBER_IMAGES":1
+  },
+  "skip_bin_ext": "yes",
+  "source_files": [
+  ],
+  "tags": [
+    "kann-sample",
+    "evaluation"
+  ],
+  "version": "1.2"
+}
