@@ -1,0 +1,45 @@
+{
+  "check_exit_status": "yes",
+  "aux_uoa": "4e3e9dd897f125bb",
+  "customize": {
+    "force_ask_path": "yes",
+    "install_env": {
+      "CK_KANN_INPUT_PREPARATOR": "input_preparator.py"
+    },
+    "no_os_in_suggested_path": "yes",
+    "no_ver_in_suggested_path": "yes",
+    "version": "2012"
+  },
+  "deps": {
+    "kannmodel": {
+      "local": "yes",
+      "add_to_path": "yes",
+	  "name": "KaNN model (net and weights)",
+      "sort": 10,
+      "tags": "kannmodel,net,weights"
+    },
+    "dataset-imagenet-raw": {
+      "local": "yes",
+      "add_to_path": "no",
+      "name": "ImageNet dataset (raw)",
+      "sort": 30,
+      "tags": "dataset,imagenet,raw"
+    }
+  },
+  "end_full_path": {
+    "linux": "ILSVRC2012_val_00000001.kann_input",
+    "win": "ILSVRC2012_val_00000001.kann_input"
+  },
+  "need_cpu_info": "no",
+  "process_script": "install",
+  "remove_deps":"yes",
+  "soft_uoa": "8db14d6a8ccd42fe",
+  "suggested_path": "dataset-imagenet-ilsvrc2012-val-kann",
+  "tags": [
+    "dataset",
+    "imagenet",
+    "ilsvrc2012",
+    "val-kann",
+    "kann"
+  ]
+}
