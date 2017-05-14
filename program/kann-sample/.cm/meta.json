@@ -15,6 +15,10 @@
       "ignore_return_code": "no",
       "run_time": {
         "fine_grain_timer_file": "tmp-ck-timer.json",
+        "post_process_cmds": [
+          "python $#src_path_local#$postprocess.py"
+        ],
+        "post_process_via_ck": "yes",
         "run_cmd_main": "$<<CK_ENV_MODEL_KANN_HOST_BIN>>$ $<<CK_ENV_MODEL_KANN_MULTIBIN_BIN>>$ io_bin $<<CK_ENV_MODEL_KANN_MODEL_DIR>>$/input_prep $<<CK_ENV_MODEL_KANN_MODEL_DIR>>$/output_vector $<<CK_ENV_MODEL_KANN_PARAMS_BIN>>$ $<<CK_KANN_MAX_NUMBER_IMAGES>>$",
         "run_cmd_out1": "tmp-stdout.tmp",
         "run_cmd_out2": "tmp-stderr.tmp",
