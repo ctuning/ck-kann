@@ -29,6 +29,12 @@ def ck_postprocess(i):
        if r['return']>0: return r
        lst+=r['lst']
 
+    # Match e.g. "[io_0] frame 1: 19.48 ms - 051.34 fps".
+    frame_regex = \
+        '\[(?P<unit>[\w_]+)\] frame ' + \
+        '(?P<idx>\d+): ' + \
+        '(?P<ms>\d*\.?\d*) ms - ' + \
+        '(?P<fps>\d*\.?\d*) fps'
     # Match e.g. '[host] reading parameters from "/home/accesscore/KaNN_Evaluation_Package_v1.2/GoogLeNet_imagenet/params.bin": 14013664 bytes read'.
     params_regex = \
         '\[host\] reading parameters from ' + \
@@ -50,8 +56,18 @@ def ck_postprocess(i):
     d['version'] = version
     d['params'] = {}
     d['args'] = {}
+    d['frames'] = []
     d['mppa_mhz_fps_ms'] = {}
     for line in lst:
+        # Match io or host frame timing.
+        match = re.search(frame_regex, line)
+        if match:
+            frame = {}
+            frame['unit'] = match.group('unit')
+            frame['idx'] = int(match.group('idx'))
+            frame['ms'] = float(match.group('ms'))
+            frame['fps'] = float(match.group('fps'))
+            d['frames'].append(frame)
         # Match params (net topology and weights).
         match = re.search(params_regex, line)
         if match:
