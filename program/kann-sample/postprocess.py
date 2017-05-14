@@ -45,6 +45,21 @@ def ck_postprocess(i):
         '\[clus_00\] Arg ' + \
         '(?P<idx>\d+): ' + \
         '(?P<val>[\w\./_-]*)'
+    # Match e.g. '21.0ms 03.3ms(15.6%) 00.7ms(03.5%) ...'.
+    last_frame_regex = \
+        '(?P<total_ms>\d*\.?\d*)ms ' + \
+        '(?P<wait_clus_ms>\d*\.?\d*)ms\((?P<wait_clus_pc>\d*\.?\d*)%\) ' + \
+        '(?P<send_clus_ms>\d*\.?\d*)ms\((?P<send_clus_pc>\d*\.?\d*)%\) ' + \
+        '(?P<wait_io_ms>\d*\.?\d*)ms\((?P<wait_io_pc>\d*\.?\d*)%\) ' + \
+        '(?P<send_io_ms>\d*\.?\d*)ms\((?P<send_io_pc>\d*\.?\d*)%\) ' + \
+        '(?P<conv_ms>\d*\.?\d*)ms\((?P<conv_pc>\d*\.?\d*)%\) ' + \
+        '(?P<relu_ms>\d*\.?\d*)ms\((?P<relu_pc>\d*\.?\d*)%\) ' + \
+        '(?P<copy_ms>\d*\.?\d*)ms\((?P<copy_pc>\d*\.?\d*)%\) ' + \
+        '(?P<max_pool_ms>\d*\.?\d*)ms\((?P<max_pool_pc>\d*\.?\d*)%\) ' + \
+        '(?P<avg_pool_ms>\d*\.?\d*)ms\((?P<avg_pool_pc>\d*\.?\d*)%\) ' + \
+        '(?P<lrn_ms>\d*\.?\d*)ms\((?P<lrn_pc>\d*\.?\d*)%\) ' + \
+        '(?P<softmax_ms>\d*\.?\d*)ms\((?P<softmax_pc>\d*\.?\d*)%\) ' + \
+        '(?P<other_ms>\d*\.?\d*)ms\((?P<other_pc>\d*\.?\d*)%\)'
     # Match e.g. 'MPPA 400 MHz 5.96 FPS 167.83 ms' (deprecated).
     mppa_mhz_fps_ms_regex = \
         'MPPA ' + \
@@ -57,6 +72,7 @@ def ck_postprocess(i):
     d['params'] = {}
     d['args'] = {}
     d['frames'] = []
+    d['last_frame'] = []
     d['mppa_mhz_fps_ms'] = {}
     for line in lst:
         # Match io or host frame timing.
@@ -77,6 +93,37 @@ def ck_postprocess(i):
         match = re.search(arg_regex, line)
         if match:
             d['args'][match.group('idx')] = match.group('val')
+        # Match timings on clusters for the last frame.
+        match = re.search(last_frame_regex, line)
+        if match:
+            timings = {}
+            timings['total_ms'] = float(match.group('total_ms'))
+            timings['total_pc'] = float(100)
+            timings['wait_clus_ms'] = float(match.group('wait_clus_ms'))
+            timings['wait_clus_pc'] = float(match.group('wait_clus_pc'))
+            timings['send_clus_ms'] = float(match.group('send_clus_ms'))
+            timings['send_clus_pc'] = float(match.group('send_clus_pc'))
+            timings['wait_io_ms'] = float(match.group('wait_io_ms'))
+            timings['wait_io_pc'] = float(match.group('wait_io_pc'))
+            timings['send_io_ms'] = float(match.group('send_io_ms'))
+            timings['send_io_pc'] = float(match.group('send_io_pc'))
+            timings['conv_ms'] = float(match.group('conv_ms'))
+            timings['conv_pc'] = float(match.group('conv_pc'))
+            timings['relu_ms'] = float(match.group('relu_ms'))
+            timings['relu_pc'] = float(match.group('relu_pc'))
+            timings['copy_ms'] = float(match.group('copy_ms'))
+            timings['copy_pc'] = float(match.group('copy_pc'))
+            timings['max_pool_ms'] = float(match.group('max_pool_ms'))
+            timings['max_pool_pc'] = float(match.group('max_pool_pc'))
+            timings['avg_pool_ms'] = float(match.group('avg_pool_ms'))
+            timings['avg_pool_pc'] = float(match.group('avg_pool_pc'))
+            timings['lrn_ms'] = float(match.group('lrn_ms'))
+            timings['lrn_pc'] = float(match.group('lrn_pc'))
+            timings['softmax_ms'] = float(match.group('softmax_ms'))
+            timings['softmax_pc'] = float(match.group('softmax_pc'))
+            timings['other_ms'] = float(match.group('other_ms'))
+            timings['other_pc'] = float(match.group('other_pc'))
+            d['last_frame'].append(timings)
         # Match a single line with 3 metrics (inaccurate).
         match = re.search(mppa_mhz_fps_ms_regex, line)
         if match:
