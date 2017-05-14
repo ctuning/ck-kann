@@ -29,10 +29,15 @@ def ck_postprocess(i):
        if r['return']>0: return r
        lst+=r['lst']
 
-    # Match e.g. 'clus_00] Arg 2: io_bin'.
+    # Match e.g. '[host] reading parameters from "/home/accesscore/KaNN_Evaluation_Package_v1.2/GoogLeNet_imagenet/params.bin": 14013664 bytes read'.
+    params_regex = \
+        '\[host\] reading parameters from ' + \
+        '\"(?P<path>[\w\./_-]*)\"' + \
+        ': (?P<bytes>\d+) bytes read'
+    # Match e.g. '[clus_00] Arg 2: io_bin'.
     arg_regex = \
         '\[clus_00\] Arg ' + \
-		'(?P<idx>\d+): ' + \
+        '(?P<idx>\d+): ' + \
         '(?P<val>[\w\./_-]*)'
     # Match e.g. 'MPPA 400 MHz 5.96 FPS 167.83 ms' (deprecated).
     mppa_mhz_fps_ms_regex = \
@@ -43,13 +48,20 @@ def ck_postprocess(i):
 
     d={}
     d['version'] = version
+    d['params'] = {}
     d['args'] = {}
     d['mppa_mhz_fps_ms'] = {}
     for line in lst:
+        # Match params (net topology and weights).
+        match = re.search(params_regex, line)
+        if match:
+            d['params']['path'] = match.group('path')
+            d['params']['bytes'] = int(match.group('bytes'))
+        # Match arguments (paths, number of images).
         match = re.search(arg_regex, line)
         if match:
             d['args'][match.group('idx')] = match.group('val')
-
+        # Match a single line with 3 metrics (inaccurate).
         match = re.search(mppa_mhz_fps_ms_regex, line)
         if match:
             d['mppa_mhz_fps_ms']['mhz'] = int(match.group('mhz'))
