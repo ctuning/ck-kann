@@ -29,6 +29,11 @@ def ck_postprocess(i):
        if r['return']>0: return r
        lst+=r['lst']
 
+    # Match e.g. 'clus_00] Arg 2: io_bin'.
+    arg_regex = \
+        '\[clus_00\] Arg ' + \
+		'(?P<idx>\d+): ' + \
+        '(?P<val>[\w\./_-]*)'
     # Match e.g. 'MPPA 400 MHz 5.96 FPS 167.83 ms' (deprecated).
     mppa_mhz_fps_ms_regex = \
         'MPPA ' + \
@@ -38,10 +43,15 @@ def ck_postprocess(i):
 
     d={}
     d['version'] = version
+    d['args'] = {}
+    d['mppa_mhz_fps_ms'] = {}
     for line in lst:
+        match = re.search(arg_regex, line)
+        if match:
+            d['args'][match.group('idx')] = match.group('val')
+
         match = re.search(mppa_mhz_fps_ms_regex, line)
         if match:
-            d['mppa_mhz_fps_ms'] = {}
             d['mppa_mhz_fps_ms']['mhz'] = int(match.group('mhz'))
             d['mppa_mhz_fps_ms']['fps'] = float(match.group('fps'))
             d['mppa_mhz_fps_ms']['ms']  = float(match.group('ms'))
