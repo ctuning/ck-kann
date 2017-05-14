@@ -8,6 +8,7 @@
 import json
 import os
 import re
+import struct
 
 def ck_postprocess(i):
     ck=i['ck_kernel']
@@ -15,6 +16,9 @@ def ck_postprocess(i):
 
     deps=i['deps']
     version=deps['kannmodel']['cus']['version']
+
+    env=i['env']
+    max_num_images=int(env.get('CK_KANN_MAX_NUMBER_IMAGES',-1))
 
     # Load and concatenate stdout and stderr.
     lst=[]
@@ -69,9 +73,10 @@ def ck_postprocess(i):
 
     d={}
     d['version'] = version
+    d['max_num_images'] = max_num_images
     d['params'] = {}
     d['args'] = {}
-    d['frames'] = []
+    d['frame_timings'] = []
     d['last_frame'] = []
     d['mppa_mhz_fps_ms'] = {}
     for line in lst:
@@ -83,7 +88,7 @@ def ck_postprocess(i):
             frame['idx'] = int(match.group('idx'))
             frame['ms'] = float(match.group('ms'))
             frame['fps'] = float(match.group('fps'))
-            d['frames'].append(frame)
+            d['frame_timings'].append(frame)
         # Match params (net topology and weights).
         match = re.search(params_regex, line)
         if match:
@@ -134,6 +139,21 @@ def ck_postprocess(i):
 
     rr={}
     rr['return']=0
+
+    d['frame_predictions'] = []
+    imagenet_num_classes = 1000
+    sizeof_fp32 = 4
+    kann_output_filename = 'tmp-kann-output.tmp'
+    with open(kann_output_filename, 'rb') as kann_output_file:
+        num_elems = imagenet_num_classes*max_num_images
+        kann_output_as_binary = kann_output_file.read(sizeof_fp32*num_elems)
+        kann_output_as_floats = struct.unpack('f'*num_elems, kann_output_as_bytes)
+    for image_idx in range(max_num_images):
+        image_start = image_idx * imagenet_num_classes
+        image_end = image_start + imagenet_num_classes
+        image_probs = kann_output_as_floats[image_start:image_end]
+        # TODO: Access class labels. Calculate top1 and top5 accuracy.
+        d['frame_predictions'].append(image_probs)
 
     if d.get('post_processed','')=='yes':
         # Save to fine-grain-timer file.
