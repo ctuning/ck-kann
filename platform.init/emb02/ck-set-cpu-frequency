@@ -1,0 +1,27 @@
+#! /bin/bash
+
+#
+# Collective Knowledge (CK)
+#
+# See CK LICENSE.txt for licensing details.
+# See CK COPYRIGHT.txt for copyright details.
+#
+# Developer: Anton Lokhmotov, anton@dividiti.com
+#
+
+if [ "$CK_CPU_FREQ" != "" ]; then
+  freq=$CK_CPU_FREQ
+fi
+
+if [ "$1" != "" ]; then
+  freq="$1"
+fi
+
+if [[ "$freq" =~ ^(400|500|600)$ ]]; then
+  echo "    Setting CPU frequency=$freq ..."
+  /usr/local/k1tools/bin/k1-dt-tool --chip-freq -v $freq
+else
+  echo "    CPU frequency must be 400, 500 or 600! Ignoring ..."
+fi
+
+echo "    Current CPU frequency=$(/usr/local/k1tools/bin/k1-dt-tool --chip-freq)"

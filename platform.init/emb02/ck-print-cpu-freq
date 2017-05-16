@@ -1,0 +1,22 @@
+#! /bin/bash
+
+#
+# Collective Knowledge (CK)
+#
+# See CK LICENSE.txt for licensing details.
+# See CK COPYRIGHT.txt for copyright details.
+#
+# Developer: Anton Lokhmotov, anton@dividiti.com
+#
+
+echo "*** Current CPU frequency:"
+/usr/local/k1tools/bin/k1-dt-tool --chip-freq
+
+echo "*** Min CPU frequency:"
+echo "400"
+
+echo "*** Max CPU frequency:"
+echo "600"
+
+echo "*** Available CPU frequencies:"
+echo "400 500 600"

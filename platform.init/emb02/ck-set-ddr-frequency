@@ -1,0 +1,27 @@
+#! /bin/bash
+
+#
+# Collective Knowledge (CK)
+#
+# See CK LICENSE.txt for licensing details.
+# See CK COPYRIGHT.txt for copyright details.
+#
+# Developer: Anton Lokhmotov, anton@dividiti.com
+#
+
+if [ "$CK_DDR_FREQ" != "" ]; then
+  freq=$CK_DDR_FREQ
+fi
+
+if [ "$1" != "" ]; then
+  freq="$1"
+fi
+
+if [[ "$freq" =~ ^(1066|1333)$ ]]; then
+  echo "    Setting DDR frequency=$freq ..."
+  /usr/local/k1tools/bin/k1-dt-tool --ddr-freq -v $freq
+else
+  echo "    DDR frequency must be 1066 or 1333! Ignoring ..."
+fi
+
+echo "    Current DDR frequency=$(/usr/local/k1tools/bin/k1-dt-tool --ddr-freq)"
