@@ -16,7 +16,7 @@ echo "*** Min CPU frequency:"
 echo "400"
 
 echo "*** Max CPU frequency:"
-echo "600"
+echo "500"
 
 echo "*** Available CPU frequencies:"
-echo "400 500 600"
+echo "400 500"

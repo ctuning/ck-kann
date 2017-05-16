@@ -10,4 +10,4 @@
 #
 
 cd "$(dirname "${BASH_SOURCE[0]}")"
-. ck-set-cpu-frequency 600
+. ck-set-cpu-frequency 500

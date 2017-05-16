@@ -17,11 +17,11 @@ if [ "$1" != "" ]; then
   freq="$1"
 fi
 
-if [[ "$freq" =~ ^(400|500|600)$ ]]; then
+if [[ "$freq" =~ ^(400|500)$ ]]; then
   echo "    Setting CPU frequency=$freq ..."
   /usr/local/k1tools/bin/k1-dt-tool --chip-freq -v $freq
 else
-  echo "    CPU frequency must be 400, 500 or 600! Ignoring ..."
+  echo "    CPU frequency must be 400 or 500! Ignoring ..."
 fi
 
 echo "    Current CPU frequency=$(/usr/local/k1tools/bin/k1-dt-tool --chip-freq)"
