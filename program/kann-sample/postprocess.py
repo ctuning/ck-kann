@@ -147,7 +147,7 @@ def ck_postprocess(i):
     with open(kann_output_filename, 'rb') as kann_output_file:
         num_elems = imagenet_num_classes*max_num_images
         kann_output_as_binary = kann_output_file.read(sizeof_fp32*num_elems)
-        kann_output_as_floats = struct.unpack('f'*num_elems, kann_output_as_bytes)
+        kann_output_as_floats = struct.unpack('f'*num_elems, kann_output_as_binary)
     for image_idx in range(max_num_images):
         image_start = image_idx * imagenet_num_classes
         image_end = image_start + imagenet_num_classes
