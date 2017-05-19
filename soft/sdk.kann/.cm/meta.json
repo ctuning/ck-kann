@@ -1,0 +1,19 @@
+{
+  "auto_detect": "yes",
+  "customize": {
+    "ck_version": 10,
+    "env_prefix": "CK_ENV_SDK_KANN_",
+    "limit_recursion_dir_search": {
+      "linux": 2
+    },
+    "soft_file": {
+      "linux": "python/caffe_to_kann.py"
+    }
+  },
+  "soft_name": "KaNN Development Package",
+  "tags": [
+    "kann",
+    "sdk",
+    "kalray"
+  ]
+}
