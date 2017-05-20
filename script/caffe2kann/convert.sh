@@ -76,6 +76,10 @@ fi
 echo "Compiling KaNN model ..."
 echo
 
+export KANNMODEL_BIN_DIR=${CK_ENV_SDK_KANN_RUNTIME_MPPA}/output/bin
+
+rm -rf ${KANNMODEL_BIN_DIR}
+
 # TODO: Add make dependency.
 codegen_path=${KANNMODEL_OUTPUT_DIR} make -j32 -C ${KANNMODEL_MAKEFILE_DIR}
 
@@ -88,8 +92,6 @@ fi
 ################################################################################
 echo "Installing KaNN model ..."
 echo
-
-export KANNMODEL_BIN_DIR=${CK_ENV_SDK_KANN_RUNTIME_MPPA}/output/bin
 
 cp ${KANNMODEL_BIN_DIR}/io_bin ${KANNMODEL_OUTPUT_DIR}
 cp ${KANNMODEL_BIN_DIR}/host_bin ${KANNMODEL_OUTPUT_DIR}
