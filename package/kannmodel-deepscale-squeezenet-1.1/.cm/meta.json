@@ -1,0 +1,64 @@
+{
+  "check_exit_status": "yes",
+  "customize": {
+    "extra_dir": "",
+    "skip_file_check": "yes",
+    "force_ask_path": "no",
+    "no_os_in_suggested_path": "yes",
+    "no_ver_in_suggested_path": "yes",
+    "install_env": {
+    },
+    "params": {
+      "deploy": {
+        "template": "deploy.prototxt",
+        "substitute": {
+          "batch_size": 1
+        }
+      }
+    },
+    "version": "1.1"
+  },
+  "deps": {
+    "sdk-kann": {
+      "local": "yes",
+      "name": "KaNN Development Package",
+      "sort": 10,
+      "tags": "sdk,kann"
+    },
+    "caffemodel": {
+      "local": "yes",
+      "name": "SqueezeNet 1.1",
+      "sort": 20,
+      "tags": "caffemodel,squeezenet,v1.1"
+    }
+  },
+  "features": {
+    "accuracy": 0.58388,
+    "accuracy_top5": 0.810123,
+    "model_size_mb": 5
+  },
+
+  "only_for_host_os_tags": [
+    "linux"
+  ],
+  "only_for_target_os_tags": [
+    "linux"
+  ],
+  "process_script": "convert",
+  "soft_uoa": "2025bf79b2048719",
+  "suggested_path": "kannmodel-deepscale-squeezenet-1.1",
+  "package_extra_name":" (deepscale, squeezenet, 1.1)",
+  "tags": [
+    "kann",
+    "kannmodel",
+    "deepscale",
+    "squeezenet",
+    "v1.1",
+    "v1"
+  ],
+  "use_scripts_from_another_entry": {
+    "repo_uoa": "ck-kann",
+    "module_uoa": "script",
+    "data_uoa": "caffe2kann"
+  }
+}
