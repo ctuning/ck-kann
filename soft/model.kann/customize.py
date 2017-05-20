@@ -77,18 +77,15 @@ def setup(i):
     env=i['env']
     ep=cus.get('env_prefix','')
 
-	# Example: KaNN_Evaluation_Package_v1.2/SqueezeNetv11_imagenet/bin/multibin_bin.mpk
-    bin_dir=os.path.dirname(fp)
-    model_dir=os.path.dirname(bin_dir)
-    # Files under model_dir.
-    env[ep]=model_dir
+	# Example: 'generated/multibin_bin.mpk'
+    generated_dir=os.path.dirname(fp)
+    model_dir=os.path.dirname(generated_dir)
     env[ep+'MODEL_DIR']=model_dir
-    env[ep+'IMAGENET_CLASSES']=os.path.join(model_dir, 'imagenet-classes.txt')
-    env[ep+'INPUT_PREPARATOR']=os.path.join(model_dir, 'input_preparator.py')
-    env[ep+'PARAMS_BIN']=os.path.join(model_dir, 'params.bin')
-    # Files under bin_dir.
-    env[ep+'BIN_DIR']=bin_dir
-    env[ep+'HOST_BIN']=os.path.join(bin_dir, 'host_bin')
-    env[ep+'MULTIBIN_BIN']=fp
+    # Files under generated_dir.
+    env[ep+'INPUT_PREPARATOR']=os.path.join(generated_dir, 'input_preparator.py')
+    env[ep+'MULTIBIN_BIN']=os.path.join(generated_dir, 'multibin_bin.mpk') # fp
+    env[ep+'PARAMS_BIN']=os.path.join(generated_dir, 'params.bin')
+    env[ep+'HOST_BIN']=os.path.join(generated_dir, 'host_bin')
+    env[ep+'IO_BIN']=os.path.join(generated_dir, 'io_bin')
 
     return {'return':0, 'bat':s}
