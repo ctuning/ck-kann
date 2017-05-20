@@ -80,8 +80,11 @@ def setup(i):
 	# Example: KaNN_Development_Package_v1.2/python/caffe_to_kann.py
     python_dir=os.path.dirname(fp)
     sdk_dir=os.path.dirname(python_dir)
+    runtime_dir=os.path.join(sdk_dir, 'runtime')
+    runtime_mppa_dir=os.path.join(runtime_dir, 'mppa')
     env[ep]=sdk_dir
-    env[ep+'CAFFE_TO_KANN']=fp
+    env[ep+'PYTHON_CAFFE_TO_KANN']=fp
+    env[ep+'RUNTIME_MPPA']=runtime_mppa_dir
     # Version. TODO: Do not prompt for version - use this one.
     prefix='KaNN_Development_Package_'
     version=os.path.basename(sdk_dir)[len(prefix):]
