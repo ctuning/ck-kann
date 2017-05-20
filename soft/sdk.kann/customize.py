@@ -82,12 +82,22 @@ def setup(i):
     sdk_dir=os.path.dirname(python_dir)
     runtime_dir=os.path.join(sdk_dir, 'runtime')
     runtime_mppa_dir=os.path.join(runtime_dir, 'mppa')
+
     env[ep]=sdk_dir
-    env[ep+'PYTHON_CAFFE_TO_KANN']=fp
-    env[ep+'RUNTIME_MPPA']=runtime_mppa_dir
+    env[ep+'_PYTHON_CAFFE_TO_KANN']=fp
+    env[ep+'_RUNTIME_MPPA']=runtime_mppa_dir
+
     # Version. TODO: Do not prompt for version - use this one.
     prefix='KaNN_Development_Package_'
     version=os.path.basename(sdk_dir)[len(prefix):]
-    env[ep+'VERSION']=version
+    env[ep+'_VERSION']=version
+
+    # Dynamic lib.
+    cus['path_lib']=runtime_mppa_dir
+    cus['dynamic_lib']=os.path.join(runtime_mppa_dir, 'libruntime_host.so')
+    env[ep+'_DYNAMIC_NAME']=cus.get('dynamic_lib','')
+    r=ck.access({'action':'lib_path_export_script', 'module_uoa':'os', 'host_os_dict':hosd, 'lib_path':cus.get('path_lib','')})
+    if r['return']>0: return r
+    s+=r['script']
 
     return {'return':0, 'bat':s}

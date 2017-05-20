@@ -2,7 +2,7 @@
   "auto_detect": "yes",
   "customize": {
     "ck_version": 10,
-    "env_prefix": "CK_ENV_SDK_KANN_",
+    "env_prefix": "CK_ENV_SDK_KANN",
     "limit_recursion_dir_search": {
       "linux": 1
     },
