@@ -77,15 +77,14 @@ def setup(i):
     env=i['env']
     ep=cus.get('env_prefix','')
 
-	# Example: 'generated/multibin_bin.mpk'
-    generated_dir=os.path.dirname(fp)
-    model_dir=os.path.dirname(generated_dir)
-    env[ep+'MODEL_DIR']=model_dir
-    # Files under generated_dir.
-    env[ep+'INPUT_PREPARATOR']=os.path.join(generated_dir, 'input_preparator.py')
-    env[ep+'MULTIBIN_BIN']=os.path.join(generated_dir, 'multibin_bin.mpk') # fp
-    env[ep+'PARAMS_BIN']=os.path.join(generated_dir, 'params.bin')
-    env[ep+'HOST_BIN']=os.path.join(generated_dir, 'host_bin')
-    env[ep+'IO_BIN']=os.path.join(generated_dir, 'io_bin')
+    env[ep+'_ROOT']=fp
+    # The generated files get copied under '$CK_ENV_MODEL_KANN_ROOT/generated'.
+    # FIXME: Detect one of the generated files to avoid hardcoding the subdir name.
+    generated_dir=os.path.join(fp, 'generated')
+    env[ep+'_INPUT_PREPARATOR']=os.path.join(generated_dir, 'input_preparator.py')
+    env[ep+'_MULTIBIN_BIN']=os.path.join(generated_dir, 'multibin_bin.mpk')
+    env[ep+'_PARAMS_BIN']=os.path.join(generated_dir, 'params.bin')
+    env[ep+'_HOST_BIN']=os.path.join(generated_dir, 'host_bin')
+    env[ep+'_IO_BIN']=os.path.join(generated_dir, 'io_bin')
 
     return {'return':0, 'bat':s}

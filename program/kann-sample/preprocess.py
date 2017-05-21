@@ -34,6 +34,6 @@ def ck_preprocess(i):
             if num_images >= max_num_images: break
 
     b=''
-    return {'return':0, 'bat':b, 'new_env':nenv}
+    return {'return':0, 'bat':b}
 
 # Do not add anything here!

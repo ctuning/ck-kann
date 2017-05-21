@@ -12,7 +12,7 @@
 import os
 
 ##############################################################################
-# setup environment setup
+# setup environment
 
 def setup(i):
     """
@@ -53,42 +53,29 @@ def setup(i):
 
     import os
 
-    # Get variables.
+    # Get CK variables.
     ck=i['ck_kernel']
     s=''
 
 	# Even if the original is removed, we still have a copy to figure out the number of images.
     cdeps=i['deps_copy']
 
-    iv=i.get('interactive','')
+    # Check the host platform.
+    hosd=i['host_os_dict']
+    hplat=hosd.get('ck_name','')
+    hproc=hosd.get('processor','')
+    #sdirs=hosd.get('dir_sep','')
 
     cus=i.get('customize',{})
     fp=cus.get('full_path','')
-
-    hosd=i['host_os_dict']
-    tosd=i['target_os_dict']
-
-    sdirs=hosd.get('dir_sep','')
-
-    # Check platform
-    hplat=hosd.get('ck_name','')
-
-    hproc=hosd.get('processor','')
-    tproc=tosd.get('processor','')
-
-    remote=tosd.get('remote','')
-    tbits=tosd.get('bits','')
-
-    env=i['env']
-
     pi=os.path.dirname(fp)
 
     ep=cus.get('env_prefix','')
+    env=i['env']
     env[ep]=pi
+    env['CK_KANN_IMAGENET_VAL']=pi
 
-    env['CK_CAFFE_IMAGENET_VAL_KANN']=pi
-
-    # Checking the number of images.
+    # Check the number of images.
     pff=cus['ck_features_file']
     pf=os.path.join(pi, pff)
     features=cus.get('features',{})
@@ -100,8 +87,7 @@ def setup(i):
         if r['return']>0: return r
         cus['features']=r['dict']
       else:
-        return {'return':1, 'error':'CK features for KaNN input dataset are not defined and file '+pff+' doesn\'t exist'}
-
+        return {'return':1, 'error':'CK features for KaNN input dataset are not defined and file \''+pff+'\' does not exist'}
     else:
       num=cus.get('first_images','')
       if num!='':
@@ -114,9 +100,11 @@ def setup(i):
             num+=1
       features['number_of_original_images']=num
 
-#    ie=cus.get('install_env',{})
-
     cus['features']=features
+
+    # Get the KaNN model name from the Caffe model version.
+    version=cdeps.get('kannmodel',{}).get('dict',{}).get('customize',{}).get('version')
+    print(version)
 
     r=ck.save_json_to_file({'json_file':pf, 'dict':features})
     if r['return']>0: return r

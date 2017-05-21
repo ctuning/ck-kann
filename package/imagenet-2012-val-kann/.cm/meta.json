@@ -16,7 +16,7 @@
       "add_to_path": "yes",
 	  "name": "KaNN model (net and weights)",
       "sort": 10,
-      "tags": "kannmodel,net,weights"
+      "tags": "kannmodel"
     },
     "dataset-imagenet-raw": {
       "local": "yes",
@@ -34,12 +34,13 @@
   "process_script": "install",
   "remove_deps":"yes",
   "soft_uoa": "8db14d6a8ccd42fe",
-  "suggested_path": "dataset-imagenet-ilsvrc2012-val-kann",
+  "suggested_path": "dataset-imagenet-val-kann",
   "tags": [
     "dataset",
     "imagenet",
-    "ilsvrc2012",
+    "val",
+    "kann",
     "val-kann",
-    "kann"
+    "ilsvrc2012"
   ]
 }
