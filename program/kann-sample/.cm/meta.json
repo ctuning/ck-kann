@@ -19,7 +19,10 @@
           "python $#src_path_local#$postprocess.py"
         ],
         "post_process_via_ck": "yes",
-        "run_cmd_main": "$<<CK_ENV_MODEL_KANN_HOST_BIN>>$ $<<CK_ENV_MODEL_KANN_MULTIBIN_BIN>>$ io_bin $<<CK_ENV_MODEL_KANN_MODEL_DIR>>$/input_prep tmp-kann-output.tmp $<<CK_ENV_MODEL_KANN_PARAMS_BIN>>$ $<<CK_KANN_MAX_NUMBER_IMAGES>>$",
+        "pre_process_via_ck": {
+          "script_name": "preprocess"
+        },
+        "run_cmd_main": "$<<CK_ENV_MODEL_KANN_HOST_BIN>>$ $<<CK_ENV_MODEL_KANN_MULTIBIN_BIN>>$ io_bin tmp-kann-input.tmp tmp-kann-output.tmp $<<CK_ENV_MODEL_KANN_PARAMS_BIN>>$ $<<CK_KANN_MAX_NUMBER_IMAGES>>$",
         "run_cmd_out1": "tmp-stdout.tmp",
         "run_cmd_out2": "tmp-stderr.tmp",
         "run_correctness_output_files": [],
@@ -38,6 +41,13 @@
       "name": "Caffe model (net and weights)",
       "sort": 40,
       "tags": "kannmodel"
+    },
+    "kann-val": {
+      "force_target_as_host": "yes",
+      "local": "yes",
+      "name": "ImageNet val",
+      "sort": 40,
+      "tags": "imagenet,val-kann"
     }
   },
   "run_vars": {
