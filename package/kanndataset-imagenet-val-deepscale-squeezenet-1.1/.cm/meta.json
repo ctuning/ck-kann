@@ -32,7 +32,7 @@
   "process_script": "convert",
   "remove_deps": "yes",
   "soft_uoa": "8db14d6a8ccd42fe",
-  "suggested_path": "dataset-imagenet-val-kann",
+  "suggested_path": "dataset-imagenet-ilsvrc2012-val-kann",
   "tags": [
     "dataset",
     "imagenet",
