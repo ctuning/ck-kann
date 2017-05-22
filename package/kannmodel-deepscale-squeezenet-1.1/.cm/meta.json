@@ -32,6 +32,9 @@
       "tags": "caffemodel,squeezenet,v1.1"
     }
   },
+  "end_full_path": {
+    "linux": "generated/multibin_bin.mpk"
+  },
   "features": {
     "accuracy": 0.58388,
     "accuracy_top5": 0.810123,
