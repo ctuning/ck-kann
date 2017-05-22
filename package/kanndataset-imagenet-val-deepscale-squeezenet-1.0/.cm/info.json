@@ -1,0 +1,16 @@
+{
+  "backup_data_uid": "29fdc049f4b87a3f", 
+  "backup_module_uid": "1dc07ee0f4742028", 
+  "backup_module_uoa": "package", 
+  "control": {
+    "engine": "CK", 
+    "iso_datetime": "2017-05-22T13:11:42.611133", 
+    "version": [
+      "1", 
+      "9", 
+      "1", 
+      "1"
+    ]
+  }, 
+  "data_name": "kanndataset-imagenet-val-deepscale-squeezenet-1.0"
+}
