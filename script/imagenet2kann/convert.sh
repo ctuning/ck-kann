@@ -2,7 +2,7 @@
 
 #
 # Installation script for the 2012 ImageNet Large Scale Visual Recognition
-# Challenge (ILSVRC'12) validation dataset.
+# Challenge (ILSVRC'12) validation dataset converted into the KaNN format.
 #
 # See CK LICENSE.txt for licensing details.
 # See CK COPYRIGHT.txt for copyright details.

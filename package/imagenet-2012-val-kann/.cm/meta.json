@@ -2,13 +2,11 @@
   "check_exit_status": "yes",
   "aux_uoa": "4e3e9dd897f125bb",
   "customize": {
-    "force_ask_path": "yes",
-    "install_env": {
-      "CK_KANN_INPUT_PREPARATOR": "input_preparator.py"
-    },
+    "force_ask_path": "no",
+    "install_env": {},
     "no_os_in_suggested_path": "yes",
-    "no_ver_in_suggested_path": "yes",
-    "version": "2012"
+    "no_ver_in_suggested_path": "no",
+    "version": "deepscale-squeezenet-1.1"
   },
   "deps": {
     "kannmodel": {
@@ -16,7 +14,7 @@
       "add_to_path": "yes",
 	  "name": "KaNN model (net and weights)",
       "sort": 10,
-      "tags": "kannmodel"
+      "tags": "kannmodel,deepscale,squeezenet,v1.1"
     },
     "dataset-imagenet-raw": {
       "local": "yes",
@@ -31,8 +29,8 @@
     "win": "ILSVRC2012_val_00000001.kann_input"
   },
   "need_cpu_info": "no",
-  "process_script": "install",
-  "remove_deps":"yes",
+  "process_script": "convert",
+  "remove_deps": "yes",
   "soft_uoa": "8db14d6a8ccd42fe",
   "suggested_path": "dataset-imagenet-val-kann",
   "tags": [
@@ -40,7 +38,14 @@
     "imagenet",
     "val",
     "kann",
-    "val-kann",
-    "ilsvrc2012"
-  ]
+    "deepscale",
+    "squeezenet",
+    "v1.1",
+    "v1"
+  ],
+  "use_scripts_from_another_entry": {
+    "use_repo": "ck-kann",
+    "module_uoa": "script",
+    "data_uoa": "imagenet2kann"
+  }
 }
