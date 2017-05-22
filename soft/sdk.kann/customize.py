@@ -10,6 +10,21 @@
 import os
 
 ##############################################################################
+# detect version from full path
+
+ver_prefix='KaNN_Development_Package_v'
+
+def version_cmd(i):
+    fp=i['full_path']
+
+    p1=os.path.dirname(fp)
+    p2=os.path.dirname(p1)
+
+    ver=os.path.basename(p2)[len(ver_prefix):]
+
+    return {'return':0, 'cmd':'', 'version':ver}
+
+##############################################################################
 # setup software environment
 
 def setup(i):
@@ -77,7 +92,7 @@ def setup(i):
     env=i['env']
     ep=cus.get('env_prefix','')
 
-	# Example: KaNN_Development_Package_v1.2/python/caffe_to_kann.py
+    # Example: KaNN_Development_Package_v1.2/python/caffe_to_kann.py
     python_dir=os.path.dirname(fp)
     sdk_dir=os.path.dirname(python_dir)
     runtime_dir=os.path.join(sdk_dir, 'runtime')
@@ -87,9 +102,8 @@ def setup(i):
     env[ep+'_PYTHON_CAFFE_TO_KANN']=fp
     env[ep+'_RUNTIME_MPPA']=runtime_mppa_dir
 
-    # Version. TODO: Do not prompt for version - use this one.
-    prefix='KaNN_Development_Package_'
-    version=os.path.basename(sdk_dir)[len(prefix):]
+    # Detect version 
+    version=os.path.basename(sdk_dir)[len(ver_prefix):]
     env[ep+'_VERSION']=version
 
     # Dynamic lib.
