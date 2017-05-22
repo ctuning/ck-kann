@@ -79,8 +79,6 @@ def setup(i):
 
     env[ep+'_ROOT']=fp
     # The generated files get copied under '$CK_ENV_MODEL_KANN_ROOT/generated'.
-    # FIXME: Detect one of the generated files to avoid hardcoding the subdir name.
-#    generated_dir=os.path.join(fp, 'generated')
     generated_dir=os.path.dirname(fp)
     env[ep+'_INPUT_PREPARATOR']=os.path.join(generated_dir, 'input_preparator.py')
     env[ep+'_MULTIBIN_BIN']=os.path.join(generated_dir, 'multibin_bin.mpk')
