@@ -20,11 +20,13 @@
 # CK_ENV_SDK_KANN_PYTHON_CAFFE_TO_KANN - python script from sdk-kann dependency
 # CK_ENV_MODEL_CAFFE - dir containing topology from caffemodel dependency
 # CK_ENV_MODEL_CAFFE_WEIGHTS - weights file from caffemodel dependency
+# CK_CAFFE_IMAGENET_MEAN_BIN - ImageNet mean binary (for AlexNet and GoogleNet)
 #
 
 export KANNMODEL_MAKEFILE_DIR=${CK_ENV_SDK_KANN_RUNTIME_MPPA}
 export KANNMODEL_GENERATOR_TOOL=${CK_ENV_SDK_KANN_PYTHON_CAFFE_TO_KANN}
 export KANNMODEL_INPUT_CAFFE_WEIGHTS_FILE=${CK_ENV_MODEL_CAFFE_WEIGHTS}
+export KANNMODEL_INPUT_IMAGENET_MEAN_BIN=${CK_CAFFE_IMAGENET_MEAN_BIN}
 export KANNMODEL_OUTPUT_DIR=${INSTALL_DIR}/generated/
 
 ################################################################################
@@ -53,6 +55,7 @@ echo "Generating KaNN model from Caffe model ..."
 echo "- Generator tool: '${KANNMODEL_GENERATOR_TOOL}'"
 echo "- Input Caffe topology: '${KANNMODEL_INPUT_CAFFE_TOPOLOGY_FILE}'"
 echo "- Input Caffe weights: '${KANNMODEL_INPUT_CAFFE_WEIGHTS_FILE}'"
+echo "- Input ImageNet mean: '${KANNMODEL_INPUT_IMAGENET_MEAN_BIN}'"
 echo "- Output dir: '${KANNMODEL_OUTPUT_DIR}'"
 echo
 
@@ -64,7 +67,7 @@ rm -rf ${KANNMODEL_OUTPUT_DIR}
 mkdir -p ${KANNMODEL_OUTPUT_DIR}
 
 # TODO: Add python dependency.
-python ${KANNMODEL_GENERATOR_TOOL} ${KANNMODEL_OUTPUT_DIR} ${KANNMODEL_INPUT_CAFFE_TOPOLOGY_FILE} ${KANNMODEL_INPUT_CAFFE_WEIGHTS_FILE}
+python ${KANNMODEL_GENERATOR_TOOL} ${KANNMODEL_OUTPUT_DIR} ${KANNMODEL_INPUT_CAFFE_TOPOLOGY_FILE} ${KANNMODEL_INPUT_CAFFE_WEIGHTS_FILE} ${KANNMODEL_INPUT_IMAGENET_MEAN_BIN}
 
 if [ "${?}" != "0" ]
 then
