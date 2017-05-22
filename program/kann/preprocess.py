@@ -20,7 +20,7 @@ def ck_preprocess(i):
 
     # Create temporary input using random max_num_images from the kann-val dataset.
     # TODO: Use images with consecutive numbering?
-    imagenet_val=deps['kann-val']
+    imagenet_val=deps['kanndataset']
     imagenet_val_dir=imagenet_val['dict']['env']['CK_ENV_DATASET_IMAGENET_VAL_KANN']
     imagenet_val_files=glob.glob(imagenet_val_dir+'/ILSVRC2012_val_*.kann_input')
 

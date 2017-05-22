@@ -35,19 +35,19 @@
     }
   },
   "run_deps": {
+    "kanndataset": {
+      "force_target_as_host": "yes",
+      "local": "yes",
+      "name": "ImageNet val (KaNN)",
+      "sort": 20,
+      "tags": "dataset,imagenet,val,kann"
+    },
     "kannmodel": {
       "force_target_as_host": "yes",
       "local": "yes",
       "name": "Caffe model (net and weights)",
-      "sort": 40,
+      "sort": 10,
       "tags": "kannmodel"
-    },
-    "kann-val": {
-      "force_target_as_host": "yes",
-      "local": "yes",
-      "name": "ImageNet val",
-      "sort": 40,
-      "tags": "imagenet,val-kann"
     }
   },
   "run_vars": {
