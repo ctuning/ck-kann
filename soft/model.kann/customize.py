@@ -77,7 +77,6 @@ def setup(i):
     env=i['env']
     ep=cus.get('env_prefix','')
 
-    env[ep+'_ROOT']=fp
     # The generated files get copied under '$CK_ENV_MODEL_KANN_ROOT/generated'.
     generated_dir=os.path.dirname(fp)
     env[ep+'_INPUT_PREPARATOR']=os.path.join(generated_dir, 'input_preparator.py')
@@ -85,5 +84,6 @@ def setup(i):
     env[ep+'_PARAMS_BIN']=os.path.join(generated_dir, 'params.bin')
     env[ep+'_HOST_BIN']=os.path.join(generated_dir, 'host_bin')
     env[ep+'_IO_BIN']=os.path.join(generated_dir, 'io_bin')
+    env[ep+'_ROOT']=os.path.dirname(generated)
 
     return {'return':0, 'bat':s}
