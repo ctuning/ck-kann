@@ -102,10 +102,6 @@ def setup(i):
 
     cus['features']=features
 
-    # Get the KaNN model name from the Caffe model version.
-    version=cdeps.get('kannmodel',{}).get('dict',{}).get('customize',{}).get('version')
-    print(version)
-
     r=ck.save_json_to_file({'json_file':pf, 'dict':features})
     if r['return']>0: return r
 
