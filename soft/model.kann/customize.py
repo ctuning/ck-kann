@@ -1,5 +1,5 @@
 #
-# Collective Knowledge (individual environment - setup)
+# Collective Knowledge - KaNN model setup.
 #
 # See CK LICENSE.txt for licensing details
 # See CK COPYRIGHT.txt for copyright details
@@ -10,7 +10,7 @@
 import os
 
 ##############################################################################
-# setup environment setup
+# setup environment
 
 def setup(i):
     """
@@ -51,30 +51,12 @@ def setup(i):
 
     import os
 
-    # Get variables
+    # Get CK variables.
     ck=i['ck_kernel']
-    s=''
-
-    iv=i.get('interactive','')
+    env=i['env']
 
     cus=i.get('customize',{})
     fp=cus.get('full_path','')
-
-    hosd=i['host_os_dict']
-    tosd=i['target_os_dict']
-
-    sdirs=hosd.get('dir_sep','')
-
-    # Check platform
-    hplat=hosd.get('ck_name','')
-
-    hproc=hosd.get('processor','')
-    tproc=tosd.get('processor','')
-
-    remote=tosd.get('remote','')
-    tbits=tosd.get('bits','')
-
-    env=i['env']
     ep=cus.get('env_prefix','')
 
     # The generated files get copied under '$CK_ENV_MODEL_KANN_ROOT/generated'.
@@ -84,6 +66,7 @@ def setup(i):
     env[ep+'_PARAMS_BIN']=os.path.join(generated_dir, 'params.bin')
     env[ep+'_HOST_BIN']=os.path.join(generated_dir, 'host_bin')
     env[ep+'_IO_BIN']=os.path.join(generated_dir, 'io_bin')
-    env[ep+'_ROOT']=os.path.dirname(generated)
+    env[ep+'_ROOT']=os.path.dirname(generated_dir)
 
+    s=''
     return {'return':0, 'bat':s}
