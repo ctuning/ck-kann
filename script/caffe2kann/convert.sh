@@ -96,7 +96,6 @@ fi
 echo "Installing KaNN model ..."
 echo
 
-cp ${KANNMODEL_BIN_DIR}/io_bin ${KANNMODEL_OUTPUT_DIR}
 cp ${KANNMODEL_BIN_DIR}/host_bin ${KANNMODEL_OUTPUT_DIR}
 cp ${KANNMODEL_BIN_DIR}/multibin_bin.mpk ${KANNMODEL_OUTPUT_DIR}
 
