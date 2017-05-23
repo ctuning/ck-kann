@@ -11,7 +11,7 @@
   "deps": {
     "kannmodel": {
       "local": "yes",
-      "add_to_path": "yes",
+      "add_to_path": "no",
 	  "name": "KaNN model (net and weights)",
       "sort": 10,
       "tags": "kannmodel,deepscale,squeezenet,v1.1"
