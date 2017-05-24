@@ -22,7 +22,7 @@
         "pre_process_via_ck": {
           "script_name": "preprocess"
         },
-        "run_cmd_main": "$<<CK_ENV_MODEL_KANN_HOST_BIN>>$ $<<CK_ENV_MODEL_KANN_MULTIBIN_BIN>>$ io_bin tmp-kann-input.tmp tmp-kann-output.tmp $<<CK_ENV_MODEL_KANN_PARAMS_BIN>>$ $<<CK_KANN_MAX_NUMBER_IMAGES>>$",
+        "run_cmd_main": "/home/accesscore/CK_REPOS/ck-kann/platform.init/emb02/ck-set-cpu-frequency $<<CK_CPU_FREQ>>$; /home/accesscore/CK_REPOS/ck-kann/platform.init/emb02/ck-set-ddr-frequency $<<CK_DDR_FREQ>>$; $<<CK_ENV_MODEL_KANN_HOST_BIN>>$ $<<CK_ENV_MODEL_KANN_MULTIBIN_BIN>>$ io_bin tmp-kann-input.tmp tmp-kann-output.tmp $<<CK_ENV_MODEL_KANN_PARAMS_BIN>>$ $<<CK_KANN_MAX_NUMBER_IMAGES>>$",
         "run_cmd_out1": "tmp-stdout.tmp",
         "run_cmd_out2": "tmp-stderr.tmp",
         "run_correctness_output_files": [],
@@ -51,14 +51,17 @@
     }
   },
   "run_vars": {
-	  "CK_KANN_MAX_NUMBER_IMAGES":1
+    "CK_CPU_FREQ":400,
+    "CK_DDR_FREQ":1066,
+    "CK_KANN_MAX_NUMBER_IMAGES":1
   },
   "skip_bin_ext": "yes",
   "source_files": [
   ],
   "tags": [
-    "kann-sample",
-    "evaluation"
+    "kann",
+    "evaluation",
+    "client"
   ],
   "version": "1.2"
 }
