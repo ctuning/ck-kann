@@ -38,14 +38,14 @@
     "kanndataset": {
       "force_target_as_host": "yes",
       "local": "yes",
-      "name": "ImageNet val (KaNN)",
+      "name": "KaNN dataset (ImageNet val)",
       "sort": 20,
       "tags": "dataset,imagenet,val,kann"
     },
     "kannmodel": {
       "force_target_as_host": "yes",
       "local": "yes",
-      "name": "Caffe model (net and weights)",
+      "name": "KaNN model (net and weights)",
       "sort": 10,
       "tags": "kannmodel"
     }
