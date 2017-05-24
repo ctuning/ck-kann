@@ -8,6 +8,12 @@
 import glob
 import os
 import shutil
+import subprocess
+
+# TODO: Do not hardcode the paths.
+# TODO: Make part of the pipeline proper.
+ck_set_cpu_frequency='/home/accesscore/CK_REPOS/ck-kann/platform.init/emb02/ck-set-cpu-frequency'
+ck_set_ddr_frequency='/home/accesscore/CK_REPOS/ck-kann/platform.init/emb02/ck-set-ddr-frequency'
 
 def ck_preprocess(i):
 
@@ -32,6 +38,10 @@ def ck_preprocess(i):
                 shutil.copyfileobj(imagenet_val_f, kann_input_f)
             num_images += 1
             if num_images >= max_num_images: break
+
+    # Set MPPA and DDR frequency.
+    subprocess.call([ck_set_cpu_frequency])
+    subprocess.call([ck_set_ddr_frequency])
 
     b=''
     return {'return':0, 'bat':b}

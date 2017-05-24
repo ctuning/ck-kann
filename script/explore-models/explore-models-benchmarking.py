@@ -202,7 +202,7 @@ def do(i):
                     ]
                 ],
                 'choices_selection':[
-                    {'type':'loop', 'choice':[ 400, 500]}.
+                    {'type':'loop', 'choice':[ 400, 500]},
                     {'type':'loop', 'choice':[1066,1333]}
                 ],
 
