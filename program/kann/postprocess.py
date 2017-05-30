@@ -143,17 +143,23 @@ def ck_postprocess(i):
     d['frame_predictions'] = []
     imagenet_num_classes = 1000
     sizeof_fp32 = 4
-    kann_output_filename = 'tmp-kann-output.tmp'
-    with open(kann_output_filename, 'rb') as kann_output_file:
+    kann_output_file = 'tmp-kann-output.tmp'
+    kann_paths_file = 'tmp-kann-paths.tmp'
+    with open(kann_output_file, 'rb') as kann_output_f, open(kann_paths_file, 'r') as kann_paths_f:
         num_elems = imagenet_num_classes*max_num_images
-        kann_output_as_binary = kann_output_file.read(sizeof_fp32*num_elems)
+        kann_output_as_binary = kann_output_f.read(sizeof_fp32*num_elems)
         kann_output_as_floats = struct.unpack('f'*num_elems, kann_output_as_binary)
+        kann_paths = kann_paths_f.readlines()
     for image_idx in range(max_num_images):
         image_start = image_idx * imagenet_num_classes
         image_end = image_start + imagenet_num_classes
         image_probs = kann_output_as_floats[image_start:image_end]
+        image_path = kann_paths[image_idx].rstrip('\n').replace('kann_input', 'JPEG')
+        frame_predictions = {}
+        frame_predictions['file_name'] = image_path
+        frame_predictions['probs'] = image_probs
         # TODO: Access class labels. Calculate top1 and top5 accuracy.
-        d['frame_predictions'].append(image_probs)
+        d['frame_predictions'].append(frame_predictions)
 
     if d.get('post_processed','')=='yes':
         # Save to fine-grain-timer file.
