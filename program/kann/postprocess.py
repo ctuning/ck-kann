@@ -1,7 +1,7 @@
 #
-# Convert raw output of a KaNN sample to the CK format.
+# Convert raw output of the KaNN program to the CK format.
 #
-# Developers:
+# Developer(s):
 #   - Anton Lokhmotov, dividiti, 2017
 #
 
@@ -140,16 +140,40 @@ def ck_postprocess(i):
     rr={}
     rr['return']=0
 
+    # Collect deps of interest.
+    imagenet_aux=deps.get('imagenet-aux',{})
+    imagenet_aux_dict=imagenet_aux.get('dict',{})
+    imagenet_aux_dict_env=imagenet_aux_dict.get('env',{})
+    d['CK_CAFFE_IMAGENET_VAL_TXT']=imagenet_aux_dict_env.get('CK_CAFFE_IMAGENET_VAL_TXT','')
+    d['CK_CAFFE_IMAGENET_SYNSET_WORDS_TXT']=imagenet_aux_dict_env.get('CK_CAFFE_IMAGENET_SYNSET_WORDS_TXT','')
+    # TODO: Handle the case of no imagenet_aux (cf. CK-TensorRT).
+    with open(d['CK_CAFFE_IMAGENET_VAL_TXT']) as imagenet_val_txt:
+        image_to_synset_map = {}
+        for image_synset in imagenet_val_txt:
+            (image, synset) = image_synset.split()
+            image_to_synset_map[image] = int(synset)
+    with open(d['CK_CAFFE_IMAGENET_SYNSET_WORDS_TXT']) as imagenet_synset_words_txt:
+        synset_list = []
+        for n00000000_synset in imagenet_synset_words_txt:
+            synset = n00000000_synset[10:-1]
+            synset_list.append(synset)
+    top_n_list = [1,5]
+    for n in top_n_list:
+        top_n_accuracy = 'accuracy_top'+str(n)
+        d[top_n_accuracy] = 0
+
     d['frame_predictions'] = []
     imagenet_num_classes = 1000
-    sizeof_fp32 = 4
     kann_output_file = 'tmp-kann-output.tmp'
     kann_paths_file = 'tmp-kann-paths.tmp'
     with open(kann_output_file, 'rb') as kann_output_f, open(kann_paths_file, 'r') as kann_paths_f:
         num_elems = imagenet_num_classes*max_num_images
-        kann_output_as_binary = kann_output_f.read(sizeof_fp32*num_elems)
+        sizeof_fp32 = 4
+        num_bytes = num_elems*sizeof_fp32
+        kann_output_as_binary = kann_output_f.read(num_bytes)
         kann_output_as_floats = struct.unpack('f'*num_elems, kann_output_as_binary)
         kann_paths = kann_paths_f.readlines()
+    # For each input image / vector of probabilities.
     for image_idx in range(max_num_images):
         image_start = image_idx * imagenet_num_classes
         image_end = image_start + imagenet_num_classes
@@ -157,11 +181,37 @@ def ck_postprocess(i):
         image_path = kann_paths[image_idx].rstrip('\n').replace('kann_input', 'JPEG')
         frame_predictions = {}
         frame_predictions['file_name'] = image_path
-        frame_predictions['probs'] = image_probs
-        # TODO: Access class labels. Calculate top1 and top5 accuracy.
+        # Associate obtained probabilities with class indices.
+        all_predictions = []
+        for class_idx in range(imagenet_num_classes):
+            prediction = {}
+            prediction['class'] = class_idx
+            prediction['probability'] = image_probs[class_idx]
+            all_predictions.append(prediction)
+        all_predictions = sorted(all_predictions, key=lambda k: k['probability'], reverse=True)
+        frame_predictions['class_topmost'] = all_predictions[0]['class']
+        frame_predictions['class_correct'] = image_to_synset_map.get(image_path, -1)
+        # Calculate top_n accuracies.
+        for n in top_n_list:
+            top_n_accuracy = 'accuracy_top'+str(n)
+            top_n_predictions = all_predictions[0:n]
+            frame_predictions[top_n_accuracy] = 'no'
+            for prediction in top_n_predictions:
+                if prediction['class'] == frame_predictions['class_correct']:
+                    frame_predictions[top_n_accuracy] = 'yes'
+                    d[top_n_accuracy] += 1
+                    break
         d['frame_predictions'].append(frame_predictions)
+    # TODO: Merge d['frame_predictions'] and d['frame_timings']
+    # into d['per_image_info'] (cf. CK-TensorRT).
 
     if d.get('post_processed','')=='yes':
+        # Calculate the overall accuracy.
+        num_images = len(d['frame_predictions'])
+        scaling = 1.0 / num_images
+        for n in top_n_list:
+             top_n_accuracy = 'accuracy_top'+str(n)
+             d[top_n_accuracy] *= scaling
         # Save to fine-grain-timer file.
         r=ck.save_json_to_file({'json_file':'tmp-ck-timer.json', 'dict':d})
         if r['return']>0: return r
