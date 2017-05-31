@@ -2,8 +2,15 @@
   "data_uid": "aa8299de464392e3", 
   "data_name": "ck-kann", 
   "dict": {
-    "url": "git@github.com:dividiti/ck-kann.git", 
-    "shared": "git"
+    "shared": "git",
+    "sync": "yes",
+    "repo_deps": [
+      {
+        "repo_uoa": "ck-caffe",
+        "repo_url": "http://github.com/dividiti/ck-caffe"
+      }
+    ],
+    "url": "http://github.com/dividiti/ck-kann"
   }, 
   "data_alias": "ck-kann", 
   "data_uoa": "ck-kann"
