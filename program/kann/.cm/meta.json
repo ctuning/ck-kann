@@ -35,6 +35,13 @@
     }
   },
   "run_deps": {
+    "imagenet-aux": {
+      "force_target_as_host": "yes",
+      "local": "yes",
+      "name": "KaNN dataset labels (ImageNet aux)",
+      "sort": 30,
+      "tags": "dataset,imagenet,aux"
+    },
     "kanndataset": {
       "force_target_as_host": "yes",
       "local": "yes",
