@@ -47,6 +47,7 @@ Install CK via `pip` and check its version:
 ```
 $ sudo pip install ck
 $ ck version
+V1.9.1.1
 ```
 
 Add the following to `$HOME/.bashrc`:
@@ -88,12 +89,12 @@ $ ck install package:kanndataset-imagenet-val-bvlc-googlenet
 
 **NB:** For the first KaNN model to be installed on the platform, you will be
 prompted to select a package with the ImageNet validation dataset. Please
-select `imagenet-2012-val-min` containing 500 images, and then enter to confirm
-the default path.
+select `imagenet-2012-val-min` containing 500 images, and then press `Enter` to
+confirm the default path.
 
 **NB:** For the AlexNet and GoogleNet models, you will be prompted to choose
-between two options.  Please select the one ending with `-fast-mirror` for a
-faster download.
+between two options. Please select the ones ending with `-fast-mirror` to
+download faster.
 
 **NB:** Each of the `ck install package:kanndataset*` commands performs the following:
 1. Downloads the corresponding Caffe model.
@@ -141,10 +142,10 @@ $ ck run program:kann --env.CK_KANN_MAX_NUMBER_IMAGES=500
 You can specify MPPA and DDR frequencies to use for evaluation. For example, to set the MPPA
 frequency to 400 MHz and the DDR frequency to 1066 MHz, run:
 ```
-$ ck run program:kann --env.CK_CPU_FREQ=400 --CK_DDR_FREQ=1066
+$ ck run program:kann --env.CK_CPU_FREQ=400 --env.CK_DDR_FREQ=1066
 ```
 
-**NB:** The supported MPPA frequencies are 400 and 500 MHz.  The supported DDR
+**NB:** The supported MPPA frequencies are 400 and 500 MHz. The supported DDR
 frequencies are 1066 MHz and 1333 MHz. If you specify an unsupported frequency,
 the current frequency will be used.
 
