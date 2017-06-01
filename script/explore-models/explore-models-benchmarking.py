@@ -145,8 +145,8 @@ def do(i):
         if r['return']>0: return r
         # Get version e.g. 'bvlc-alexnet'.
         verd=r['dict']['customize']['version']
-        # Skip some datasets with "in [..]" or "not in [..]".
-        if verd not in [ 'deepscale-squeezenet-1.1' ]: continue
+        # Skip some datasets/models with "in [..]" or "not in [..]".
+        if verd in []: continue
 
         # For each KaNN model.*************************************************
         for uoam in udepm:
