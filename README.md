@@ -11,7 +11,7 @@ A suite of open-source tools for [collecting knowledge on optimising AI](http://
 * [CK-TinyDNN](https://github.com/ctuning/ck-tiny-dnn)
 * etc.
 
-# Collective Knowledge repository for collaboratively benchmarking and optimising KaNN-based designs
+# Collective Knowledge repository for benchmarking and optimising deep learning applications on Kalray platforms
 
 [![logo](https://github.com/ctuning/ck-guide-images/blob/master/logo-powered-by-ck.png)](http://cKnowledge.org)
 [![logo](https://github.com/ctuning/ck-guide-images/blob/master/logo-validated-by-the-community-simple.png)](http://cTuning.org)
@@ -20,13 +20,13 @@ A suite of open-source tools for [collecting knowledge on optimising AI](http://
 ## Introduction
 
 [CK-KaNN](https://github.com/dividiti/ck-kann) is an open-source framework for
-collaboratively benchmarking and optimising deep learning applications on
+benchmarking and optimising deep learning applications on
 [Kalray platforms](http://www.kalrayinc.com/kalray/products/).
 
 It's based on the [Kalray Neural
 Network](http://www.electronics-eetimes.com/Learning-center/kalray-deep-learning-high-performance-applications)
-framework from [Kalray](http://www.kalrayinc.com) (KaNN).
-the [Collective Knowledge](http://cknowledge.org) framework for customizable
+framework from [Kalray](http://www.kalrayinc.com) (KaNN) and
+the [Collective Knowledge](http://cknowledge.org) framework for customisable
 cross-platform builds and experimental workflows with JSON API from the
 [cTuning Foundation](http://ctuning.org) and [dividiti](http://dividiti.com).
 
@@ -35,7 +35,7 @@ cross-platform builds and experimental workflows with JSON API from the
 * Anton Lokhmotov, [dividiti](http://dividiti.com)
 * Grigori Fursin, [dividiti](http://dividiti.com) / [cTuning foundation](http://ctuning.org)
 
-## Installation instructions
+## Instructions
 
 The following instructions were tested on an
 [EMB02](http://www.kalrayinc.com/kalray/products/#platforms) development
@@ -73,7 +73,7 @@ Env UID:         Target OS: Bits: Name:                    Version:    Tags:
 
 b361a26c4b778517   linux-64    64 KaNN Development Package 1.2.1_light 64bits,host-os-linux-64,kalray,kann,sdk,target-os-linux-64,v1,v1.2,v1.2.1,v1.2.1.0
 ```
-**MB:** CK will search for a `KaNN_Development_Package_<version>` directory in the `$HOME` directory.
+**NB:** CK will search for a `KaNN_Development_Package_<version>` directory in the `$HOME` directory.
 
 ### Installing CK-KaNN models and datasets
 
@@ -150,12 +150,59 @@ the current frequency will be used.
 
 ### Evaluating all the installed KaNN models
 
+#### Running a workflow
+
 You can evaluate all the installed KaNN models by running a special CK workflow:
 ```
 $ ck find ck-kann:script:explore-models
 /home/accesscore/CK_REPOS/ck-kann/script/explore-models
 $ python /home/accesscore/CK_REPOS/ck-kann/script/explore-models/explore-models-benchmarking.py
 ```
+
+#### Inspecting experimental results
+
+This workflow processes a small number of images (e.g. 5) via CK-KaNN for each installed model, while varying the MPPA and DDR frequencies at the supported levels.
+It produces 4 `experiment` entries, one of each model:
+```
+$ ck list experiment:*-kann
+bvlc-googlenet-kann
+bvlc-alexnet-kann
+deepscale-squeezenet-1.1-kann
+deepscale-squeezenet-1.0-kann
+```
+
+Each experiment has 4 "points" for the Cartesian product of the supported MPPA and DDR frequencies e.g.
+```
+ck find experiment:bvlc-alexnet-kann
+/home/accesscore/CK_REPOS/local/experiment/bvlc-alexnet-kann
+[accesscore@emb02 ck-kann]$ ls -la /home/accesscore/CK_REPOS/local/experiment/bvlc-alexnet-kann
+total 2692
+drwxrwxr-x. 3 accesscore accesscore   4096 Jun  1 01:49 .
+drwxrwxr-x. 7 accesscore accesscore   4096 Jun  1 01:49 ..
+-rw-rw-r--. 1 accesscore accesscore  66494 Jun  1 01:49 ckp-1a57d14a0224ad29.0001.json
+-rw-rw-r--. 1 accesscore accesscore     77 Jun  1 01:49 ckp-1a57d14a0224ad29.features_flat.json
+-rw-rw-r--. 1 accesscore accesscore  14114 Jun  1 01:49 ckp-1a57d14a0224ad29.features.json
+-rw-rw-r--. 1 accesscore accesscore 586235 Jun  1 01:49 ckp-1a57d14a0224ad29.flat.json
+-rw-rw-r--. 1 accesscore accesscore  66498 Jun  1 01:49 ckp-4e0bb2c8bde1d65a.0001.json
+-rw-rw-r--. 1 accesscore accesscore     77 Jun  1 01:49 ckp-4e0bb2c8bde1d65a.features_flat.json
+-rw-rw-r--. 1 accesscore accesscore  14114 Jun  1 01:49 ckp-4e0bb2c8bde1d65a.features.json
+-rw-rw-r--. 1 accesscore accesscore 587324 Jun  1 01:49 ckp-4e0bb2c8bde1d65a.flat.json
+-rw-rw-r--. 1 accesscore accesscore  66504 Jun  1 01:48 ckp-6ccb311474b98867.0001.json
+-rw-rw-r--. 1 accesscore accesscore     77 Jun  1 01:48 ckp-6ccb311474b98867.features_flat.json
+-rw-rw-r--. 1 accesscore accesscore  14114 Jun  1 01:48 ckp-6ccb311474b98867.features.json
+-rw-rw-r--. 1 accesscore accesscore 586390 Jun  1 01:48 ckp-6ccb311474b98867.flat.json
+-rw-rw-r--. 1 accesscore accesscore  66502 Jun  1 01:48 ckp-f21aa79f2464f9c9.0001.json
+-rw-rw-r--. 1 accesscore accesscore     77 Jun  1 01:48 ckp-f21aa79f2464f9c9.features_flat.json
+-rw-rw-r--. 1 accesscore accesscore  14114 Jun  1 01:48 ckp-f21aa79f2464f9c9.features.json
+-rw-rw-r--. 1 accesscore accesscore 584808 Jun  1 01:48 ckp-f21aa79f2464f9c9.flat.json
+drwxrwxr-x. 2 accesscore accesscore   4096 Jun  1 01:49 .cm
+-rw-rw-r--. 1 accesscore accesscore     80 Jun  1 01:48 desc.json
+-rw-rw-r--. 1 accesscore accesscore  23015 Jun  1 01:48 pipeline.json
+```
+
+#### Analysing experimental results
+
+**TODO.**
 
 ## Feedback
 
