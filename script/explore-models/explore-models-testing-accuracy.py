@@ -10,12 +10,6 @@ framework_tag='kann'
 # Platform tag.
 platform_tag='kalray-emb02'
 
-# Maximum number of images (> 1).
-max_num_images=5
-
-# Number of statistical repetitions.
-num_repetitions=1
-
 
 def do(i):
     # Detect basic platform info.
@@ -213,8 +207,10 @@ def do(i):
                     '##choices#env#CK_DDR_FREQ'
                 ],
 
+                'process_multi_keys':['##characteristics#compile#*'],
+
                 'iterations':-1,
-                'repetitions':num_repetitions,
+                'repetitions':1,
 
                 'record':'yes',
                 'record_failed':'yes',
