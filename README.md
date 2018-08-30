@@ -1,7 +1,7 @@
 # [cknowledge.org/ai](http://cknowledge.org/ai): Crowdsourcing benchmarking and optimisation of AI
 
 A suite of open-source tools for [collecting knowledge on optimising AI](http://bit.ly/hipeac49-ckdl):
-* [Android app](https://play.google.com/store/apps/details?id=openscience.crowdsource.video.experiments&hl=en_GB)
+* [Android app](http://cKnowledge.org/android-apps.html)
 * [Desktop app](https://github.com/dividiti/ck-crowdsource-dnn-optimization)
 * [CK-Caffe](https://github.com/dividiti/ck-caffe)
 * [CK-Caffe2](https://github.com/ctuning/ck-caffe2)
