@@ -59,7 +59,7 @@ export CK_TOOLS=$HOME/CK_TOOLS
 
 Install the CK-KaNN repository from GitHub:
 ```
-$ ck pull repo:ck-kann --url=https://github.com/dividiti/ck-kann
+$ ck pull repo:ck-kann
 $ ck find repo:ck-kann
 /home/accesscore/CK_REPOS/ck-kann
 ```
