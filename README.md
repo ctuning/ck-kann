@@ -8,9 +8,9 @@ A suite of open-source tools for [collecting knowledge on optimising AI](http://
 * [Desktop app](https://github.com/dividiti/ck-crowdsource-dnn-optimization)
 * [CK-Caffe](https://github.com/dividiti/ck-caffe)
 * [CK-Caffe2](https://github.com/ctuning/ck-caffe2)
-* [CK-KaNN](https://github.com/dividiti/ck-kann)
+* [CK-KaNN](https://github.com/ctuning/ck-kann)
 * [CK-TensorFlow](https://github.com/ctuning/ck-tensorflow)
-* [CK-TensorRT](https://github.com/dividiti/ck-tensorrt)
+* [CK-TensorRT](https://github.com/ctuning/ck-tensorrt)
 * [CK-TinyDNN](https://github.com/ctuning/ck-tiny-dnn)
 * etc.
 
@@ -18,7 +18,7 @@ A suite of open-source tools for [collecting knowledge on optimising AI](http://
 
 ## Introduction
 
-[CK-KaNN](https://github.com/dividiti/ck-kann) is an open-source framework for
+[CK-KaNN](https://github.com/ctuning/ck-kann) is an open-source framework for
 benchmarking and optimising deep learning applications on
 [Kalray platforms](http://www.kalrayinc.com/kalray/products/).
 
