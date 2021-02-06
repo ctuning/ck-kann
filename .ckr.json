@@ -1,17 +1,18 @@
 {
-  "data_uid": "aa8299de464392e3", 
-  "data_name": "ck-kann", 
+  "data_alias": "ck-kann",
+  "data_name": "ck-kann",
+  "data_uid": "aa8299de464392e3",
+  "data_uoa": "ck-kann",
   "dict": {
-    "shared": "git",
-    "sync": "yes",
+    "desc": "Portable/customizable installation and unified access to KANN AI framework with different workflows and data sets.",
     "repo_deps": [
       {
         "repo_uoa": "ck-caffe",
         "repo_url": "http://github.com/dividiti/ck-caffe"
       }
     ],
-    "url": "http://github.com/ctuning/ck-kann"
-  }, 
-  "data_alias": "ck-kann", 
-  "data_uoa": "ck-kann"
+    "shared": "git",
+    "sync": "yes",
+    "url": "https://github.com/ctuning/ck-kann"
+  }
 }
