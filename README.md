@@ -1,20 +1,9 @@
 [![compatibility](https://github.com/ctuning/ck-guide-images/blob/master/ck-compatible.svg)](https://github.com/ctuning/ck)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 
-**All CK components can be found at [cKnowledge.io](https://cKnowledge.io) and in [one GitHub repository](https://github.com/ctuning/ai)!**
+**All CK components can be found at [cKnowledge.io](https://cKnowledge.io) and in [one GitHub repository](https://github.com/ctuning/ck-mlops)!**
 
-# [cknowledge.org/ai](http://cknowledge.org/ai): Crowdsourcing benchmarking and optimisation of AI
-
-A suite of open-source tools for [collecting knowledge on optimising AI](http://bit.ly/hipeac49-ckdl):
-* [Android app](http://cKnowledge.org/android-apps.html)
-* [Desktop app](https://github.com/dividiti/ck-crowdsource-dnn-optimization)
-* [CK-Caffe](https://github.com/dividiti/ck-caffe)
-* [CK-Caffe2](https://github.com/ctuning/ck-caffe2)
-* [CK-KaNN](https://github.com/ctuning/ck-kann)
-* [CK-TensorFlow](https://github.com/ctuning/ck-tensorflow)
-* [CK-TensorRT](https://github.com/ctuning/ck-tensorrt)
-* [CK-TinyDNN](https://github.com/ctuning/ck-tiny-dnn)
-* etc.
+# [cknowledge.io](http://cknowledge.io): Crowdsourcing benchmarking and optimisation of AI
 
 # Collective Knowledge repository for benchmarking and optimising deep learning applications on Kalray platforms
 
